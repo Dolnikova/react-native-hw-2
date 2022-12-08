@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     marginBottom: 32,
     paddingVertical: 8,
     textAlign: "center",
-    // color: "#212121",
+
     color: "#red",
     fontSize: 30,
   },
