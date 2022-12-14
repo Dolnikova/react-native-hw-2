@@ -78,7 +78,19 @@ export const MainRoute = () => {
             </Pressable>
           ),
           tabBarIcon: () => (
-            <AntDesign name="pluscircle" size={32} color={'orange'} />
+            <AntDesign
+              name="pluscircle"
+              size={32}
+              Style={{
+                capInsets: {
+                  bottom: 20,
+                  left: null,
+                  right: undefined,
+                  top: 50,
+                },
+              }}
+              color={'orange'}
+            />
           ),
           tabBarLabel: '',
         }}
