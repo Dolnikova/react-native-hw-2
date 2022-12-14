@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   vector: {
     left: 0,
-    top: -280,
+    top: -267,
     width: 20,
     height: 18,
     flex: 1,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   ellips: {
     left: 0,
-    top: -97,
+    top: -85,
     width: 60,
     height: 60,
     flex: 1,
