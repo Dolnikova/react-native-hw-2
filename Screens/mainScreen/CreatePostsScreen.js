@@ -73,10 +73,10 @@ const CreatePostsScreen = ({ navigation }) => {
         }}
       >
         {photo && (
-          <View style={styles.takePhotoContainer}>
+          <View style={{ position: 'absolute' }}>
             <Image
               source={{ uri: photo }}
-              style={{ height: 130, width: 320 }}
+              style={{ height: 240, width: 343 }}
             />
           </View>
         )}
@@ -130,7 +130,6 @@ const CreatePostsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
   },
@@ -141,9 +140,6 @@ const styles = StyleSheet.create({
     height: 240,
     flex: 1,
     resizeMode: 'cover',
-    // justifyContent: 'flex-end',
-    // alignItems: 'center',
-    // justifyContent: 'end',
   },
   vector: {
     left: 20,
@@ -154,7 +150,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   ellips: {
-    // left: 141,
     top: 90,
     width: 60,
     height: 60,
@@ -168,28 +163,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonNoActive: {
-    // left: 0,
     bottom: 120,
     width: 343,
     height: 51,
-    // flex: 1,
   },
-  takePhotoContainer: {
-    position: 'absolute',
-    top: 50,
-    left: 10,
-    borderColor: '#fff',
-    borderWidth: 1,
-  },
-  // cameraContainer: {
-  //   borderWidth: 1,
-  //   borderColor: '#ff0000',
-  //   width: 70,
-  //   height: 70,
-  //   // borderRadius: 50,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   marginBottom: 20,
-  // },
 });
 export default CreatePostsScreen;
