@@ -21,7 +21,7 @@ export const LoginScreen = ({ navigation }) => {
     useTogglePasswordVisibility();
 
   const onLogin = () => {
-    navigation.navigate('Posts');
+    navigation.navigate('MainPosts');
     setEmail('');
     setPassword('');
     Keyboard.dismiss();

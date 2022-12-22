@@ -32,7 +32,7 @@ export const RegistrationScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const onRegister = () => {
-    navigation.navigate('Posts');
+    navigation.navigate('MainPosts');
     setEmail('');
     setPassword('');
     setName('');
