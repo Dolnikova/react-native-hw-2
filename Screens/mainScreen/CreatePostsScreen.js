@@ -63,10 +63,10 @@ const CreatePostsScreen = ({ navigation }) => {
       <Camera
         ref={ref => setCamera(ref)}
         style={{
-          height: 240,
+          height: '35%',
           alignItems: 'center',
           marginBottom: 100,
-          width: 343,
+          width: '85%',
           borderRadius: 8,
           top: 32,
           backgroundColor: '#F6F6F6',
