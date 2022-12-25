@@ -9,6 +9,8 @@ import { Keyboard } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { KeyboardAvoidingView } from 'react-native';
 import { ImageBackground } from 'react-native';
+import { login } from '../../redux/auth/authOperations';
+import { useDispatch } from 'react-redux';
 
 export const LoginScreen = ({ navigation }) => {
   const [isKeyboardActive, setKeyboardActive] = useState(false);
@@ -19,8 +21,10 @@ export const LoginScreen = ({ navigation }) => {
   const [focusPassword, setFocusPassword] = useState(false);
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
+  const dispatch = useDispatch();
 
   const onLogin = () => {
+    dispatch(login({ email, password }));
     navigation.navigate('MainPosts');
     setEmail('');
     setPassword('');

@@ -4,20 +4,23 @@ import { Image } from '@rneui/themed/dist/Image';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Text, View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../redux/auth/authSelectors';
 import { CommentsScreen } from './CommentsScreen';
 import MapScreen from './MapScreen';
 
 const PostsStack = createStackNavigator();
 const Main = ({ navigation, route }) => {
+  const user = useSelector(getUser);
   return (
     <View style={styles.container}>
+      <Text>{user.userMail}</Text>
       {route.params && (
         <Image
           source={{ uri: route.params.photo }}
           style={{ width: 343, height: 200, borderRadius: 15 }}
         />
       )}
-      {console.log(route.params)}
       <Text style={{ right: 136, top: 10 }}>
         {route.params ? route.params.name : 'name'}
       </Text>
@@ -50,16 +53,11 @@ const Main = ({ navigation, route }) => {
         />
         <Text style={{ left: -125, top: -17 }}>0</Text>
       </TouchableOpacity>
-      {/* <Image source={route.params.photo} /> */}
-      {console.log(route)}
     </View>
   );
 };
 const PostsScreen = () => {
   return (
-    // <View style={styles.container}>
-    //   <Text>PostsScreen</Text>
-    // </View>
     <PostsStack.Navigator>
       <PostsStack.Screen
         options={{

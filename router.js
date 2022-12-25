@@ -9,6 +9,8 @@ import { RegistrationScreen } from './Screens/RegistrationScreen/RegistrationScr
 import { AntDesign } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { logOut } from './redux/auth/authOperations';
 
 const MainStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
@@ -36,6 +38,7 @@ export const AuthRoute = () => {
 
 export const MainRoute = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   return (
     <MainTab.Navigator>
       <MainTab.Screen
@@ -48,6 +51,7 @@ export const MainRoute = () => {
             <Pressable
               onPress={() => {
                 navigation.navigate('Register');
+                dispatch(logOut);
               }}
             >
               <AntDesign

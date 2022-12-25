@@ -1,12 +1,10 @@
 import { Button } from '@rneui/themed/dist/Button';
 import React, { useState } from 'react';
 import {
-  Dimensions,
   Platform,
   Text,
   TextInput,
   TouchableHighlight,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { styles } from './RegistrationScreen.styled';
@@ -16,28 +14,29 @@ import { Pressable } from 'react-native-web-hover';
 import { Keyboard } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { KeyboardAvoidingView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import PostsScreen from '../mainScreen/PostsScreen';
 import { ImageBackground } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/auth/authOperations';
 
 export const RegistrationScreen = ({ navigation }) => {
   const [isKeyboardActive, setKeyboardActive] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [focusName, setFocusName] = useState(false);
   const [focusEmail, setFocusEmail] = useState(false);
   const [focusPassword, setFocusPassword] = useState(false);
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const onRegister = () => {
+    dispatch(register({ email, password }));
     navigation.navigate('MainPosts');
     setEmail('');
     setPassword('');
     setName('');
     Keyboard.dismiss();
-    // setKeyboardActive(true);
   };
 
   return (
