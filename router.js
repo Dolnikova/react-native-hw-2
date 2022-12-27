@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LoginScreen } from './Screens/LoginScreen/LoginScreen';
 import CreatePostsScreen from './Screens/mainScreen/CreatePostsScreen';
 import PostsScreen from './Screens/mainScreen/PostsScreen';
@@ -11,11 +11,13 @@ import { Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { logOut } from './redux/auth/authOperations';
+import { updateUserProfile } from './redux/auth/authSlice';
+import { auth } from './firebase/config';
 
 const MainStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
-export const AuthRoute = () => {
+const AuthRoute = () => {
   return (
     <MainStack.Navigator>
       <MainStack.Screen
@@ -36,37 +38,19 @@ export const AuthRoute = () => {
   );
 };
 
-export const MainRoute = () => {
+const MainRoute = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
   return (
     <MainTab.Navigator>
       <MainTab.Screen
         name="Posts"
         component={PostsScreen}
         options={{
+          headerShown: false,
           tabBarIcon: () => <AntDesign name="appstore-o" size={24} />,
           tabBarLabel: '',
-          headerRight: () => (
-            <Pressable
-              onPress={() => {
-                navigation.navigate('Register');
-                dispatch(logOut);
-              }}
-            >
-              <AntDesign
-                name="logout"
-                size={16}
-                style={{ right: 20, opacity: 0.3 }}
-              />
-            </Pressable>
-          ),
-        }}
-      />
-      <MainTab.Screen
-        name="Create a post"
-        component={CreatePostsScreen}
-        options={{
           headerLeft: () => (
             <Pressable
               onPress={() => {
@@ -81,6 +65,12 @@ export const MainRoute = () => {
               />
             </Pressable>
           ),
+        }}
+      />
+      <MainTab.Screen
+        name="Create a post"
+        component={CreatePostsScreen}
+        options={{
           tabBarIcon: () => (
             <AntDesign
               name="pluscircle"
@@ -103,10 +93,18 @@ export const MainRoute = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
+          headerShown: false,
           tabBarIcon: () => <AntDesign name="user" size={24} />,
           tabBarLabel: '',
         }}
       />
     </MainTab.Navigator>
   );
+};
+
+export const useRoute = isAuth => {
+  if (!isAuth) {
+    return <AuthRoute />;
+  }
+  return <MainRoute />;
 };

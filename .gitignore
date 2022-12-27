@@ -11,5 +11,12 @@ npm-debug.*
 web-build/
 config.js
 
+# TernJS port file
+.tern-port
+
+#VS code
+.vs-code/
+.idea/
+
 # macOS
 .DS_Store

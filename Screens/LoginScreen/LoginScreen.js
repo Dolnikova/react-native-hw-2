@@ -25,7 +25,6 @@ export const LoginScreen = ({ navigation }) => {
 
   const onLogin = () => {
     dispatch(login({ email, password }));
-    navigation.navigate('MainPosts');
     setEmail('');
     setPassword('');
     Keyboard.dismiss();
@@ -41,62 +40,63 @@ export const LoginScreen = ({ navigation }) => {
         <KeyboardAvoidingView
           behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         >
-          <Pressable onPress={handlePasswordVisibility}>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                Keyboard.dismiss();
-                setKeyboardActive(false);
+          <TouchableWithoutFeedback
+            onPress={() => {
+              Keyboard.dismiss();
+              setKeyboardActive(false);
+            }}
+          >
+            <View
+              style={{
+                ...styles.form,
+                marginBottom: isKeyboardActive ? 20 : 100,
               }}
             >
-              <View
-                style={{
-                  ...styles.form,
-                  marginBottom: isKeyboardActive ? 20 : 100,
-                }}
-              >
-                <View>
-                  <Text style={styles.p}>Войти</Text>
-                  <TextInput
-                    value={email}
-                    onChangeText={value => setEmail(value)}
-                    placeholder="Email"
-                    onFocus={() => {
-                      setFocusEmail(true);
-                      setKeyboardActive(true);
-                    }}
-                    style={focusEmail ? styles.inputFocus : styles.input}
-                    onBlur={() => {
-                      setFocusEmail(false);
-                    }}
-                  />
-                </View>
+              <View>
+                <Text style={styles.p}>Войти</Text>
+                <TextInput
+                  value={email}
+                  onChangeText={value => setEmail(value)}
+                  placeholder="Email"
+                  onFocus={() => {
+                    setFocusEmail(true);
+                    setKeyboardActive(true);
+                  }}
+                  style={focusEmail ? styles.inputFocus : styles.input}
+                  onBlur={() => {
+                    setFocusEmail(false);
+                  }}
+                />
+              </View>
 
-                <View style={{ position: 'relative', marginTop: 20 }}>
-                  <TextInput
-                    value={password}
-                    onChangeText={value => setPassword(value)}
-                    placeholder="Password"
-                    secureTextEntry={passwordVisibility}
-                    onFocus={() => {
-                      setFocusPassword(true);
-                      setKeyboardActive(true);
-                    }}
-                    style={focusPassword ? styles.inputFocus : styles.input}
-                    onBlur={() => {
-                      setFocusPassword(false);
-                    }}
-                  />
+              <View style={{ position: 'relative', marginTop: 20 }}>
+                <TextInput
+                  value={password}
+                  onChangeText={value => setPassword(value)}
+                  placeholder="Password"
+                  secureTextEntry={passwordVisibility}
+                  onFocus={() => {
+                    setFocusPassword(true);
+                    setKeyboardActive(true);
+                  }}
+                  style={focusPassword ? styles.inputFocus : styles.input}
+                  onBlur={() => {
+                    setFocusPassword(false);
+                  }}
+                />
+                <Pressable onPress={handlePasswordVisibility}>
                   <MaterialCommunityIcons
-                    style={{ position: 'absolute', left: '90%', top: '20%' }}
+                    style={{ position: 'absolute', left: '100%' }}
                     name={rightIcon}
                     size={22}
                     color="#232323"
                   />
-                </View>
+                </Pressable>
               </View>
-            </TouchableWithoutFeedback>
-          </Pressable>
+            </View>
+          </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
+
         <View style={{ bottom: '10%' }}>
           <Button
             title={'Login'}

@@ -3,14 +3,24 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
-import { auth } from '../../firebase/config';
+import { auth, user } from '../../firebase/config';
 
 export const register = createAsyncThunk(
   'auth/register',
-  async ({ email, password }, thunkAPI) => {
+  async ({ name, email, password }, thunkAPI) => {
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
+      const createdUser = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: '',
+      }).catch(e => console.error(e));
+      return { user: createdUser, name };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -21,8 +31,12 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }, thunkAPI) => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      return user;
+      const loggedUser = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      return loggedUser;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -31,7 +45,8 @@ export const login = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await signOut(auth);
+    await signOut(auth).catch(e => console.error(e.message));
+    return true;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }

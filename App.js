@@ -4,9 +4,11 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { AuthRoute, MainRoute } from './router';
-import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { useRoute } from './router';
+import { auth } from './firebase/config';
+import { Provider, useDispatch } from 'react-redux';
+import { updateUserProfile } from './redux/auth/authSlice';
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -14,11 +16,17 @@ const loadFonts = async () => {
     'Roboto-Bold': require('./assets/fonts/Roboto/Roboto-Bold.ttf'),
   });
 };
-const MainStack = createStackNavigator();
 
 export default function App() {
-  // const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState(null);
   const [isReady, setIsReady] = useState(false);
+
+  auth.onAuthStateChanged(user => {
+    setUser(user);
+  });
+
+  const route = useRoute(user);
+
   if (!isReady) {
     return (
       <AppLoading
@@ -30,31 +38,7 @@ export default function App() {
   }
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <MainStack.Navigator>
-          <MainStack.Screen
-            options={{
-              headerShown: false,
-            }}
-            name="Auth"
-            component={AuthRoute}
-          />
-          <MainStack.Screen
-            options={{
-              headerShown: false,
-              headerRight: () => (
-                <Button
-                  onPress={() => alert('This is a button!')}
-                  title="Info"
-                  color="#fff"
-                />
-              ),
-            }}
-            name="MainPosts"
-            component={MainRoute}
-          />
-        </MainStack.Navigator>
-      </NavigationContainer>
+      <NavigationContainer>{route}</NavigationContainer>
     </Provider>
   );
 }

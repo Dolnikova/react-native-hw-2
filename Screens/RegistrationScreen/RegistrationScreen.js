@@ -31,8 +31,7 @@ export const RegistrationScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const onRegister = () => {
-    dispatch(register({ email, password }));
-    navigation.navigate('MainPosts');
+    dispatch(register({ name, email, password }));
     setEmail('');
     setPassword('');
     setName('');

@@ -8,6 +8,10 @@ import { ImageBackground, Pressable } from 'react-native';
 import { Text, View, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Location from 'expo-location';
+import { collection, addDoc, setDoc } from 'firebase/firestore';
+import { db } from '../../firebase/config';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../redux/auth/authSelectors';
 
 const CreatePostsScreen = ({ navigation }) => {
   const [cameraPermission, setCameraUsePermission] = useState(null);
@@ -18,20 +22,26 @@ const CreatePostsScreen = ({ navigation }) => {
   const [location, setLocation] = useState({});
   const [locationName, setLocationName] = useState('');
 
+  const user = useSelector(getUser);
+
   const takePhoto = async () => {
     try {
       const photo = await camera.takePictureAsync();
       setPhoto(photo.uri);
-      // console.log(photo);
     } catch (error) {
       console.log(error, 'ERROR <<<<<<<<<<<<<');
     }
   };
-  const sendPhoto = () => {
-    console.log('navigation', location);
+  const sendPhoto = async () => {
+    await addDoc(collection(db, 'posts'), {
+      photo,
+      name,
+      location,
+      locationName,
+      userName: user.name,
+    });
     navigation.navigate('Posts', {
-      screen: 'Main',
-      params: { photo, name, locationName, location },
+      screen: 'MainPosts',
     });
   };
   useEffect(() => {
@@ -40,7 +50,7 @@ const CreatePostsScreen = ({ navigation }) => {
       let { statusLocation } =
         await Location.requestForegroundPermissionsAsync();
 
-      if (statusLocation !== 'granted' || cameraLocation !== 'granted') {
+      if (statusLocation !== 'granted') {
         console.log('Permission to access location was denied', statusLocation);
       }
 
@@ -52,7 +62,6 @@ const CreatePostsScreen = ({ navigation }) => {
         longitude: location.coords.longitude,
       };
       console.log(location);
-      setLocationName('nema');
       setLocation(location);
       let backPerm = await Location.requestBackgroundPermissionsAsync();
     })();

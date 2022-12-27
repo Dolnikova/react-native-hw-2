@@ -27,7 +27,6 @@ const MapScreen = ({ route }) => {
             description="Hello"
           />
         )}
-        {console.log(route.params)}
       </MapView>
     </View>
   );
