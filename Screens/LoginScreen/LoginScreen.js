@@ -35,7 +35,7 @@ export const LoginScreen = ({ navigation }) => {
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
-        source={require('../../assets/imegs/flag.jpg')}
+        // source={require('../../assets/imegs/flag.jpg')}
       >
         <KeyboardAvoidingView
           behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
@@ -84,17 +84,40 @@ export const LoginScreen = ({ navigation }) => {
                     setFocusPassword(false);
                   }}
                 />
-                <Pressable onPress={handlePasswordVisibility}>
-                  <MaterialCommunityIcons
+                {/* <Pressable onPress={handlePasswordVisibility}> */}
+                {/* <View style={styles.commentButton}>
+                  <Button buttonStyle={styles.button}>
+                    <MaterialCommunityIcons
+                      style={{ position: 'absolute', left: '100%' }}
+                      name={rightIcon}
+                      size={22}
+                      color="#232323"
+                    />
+                  </Button>
+                </View> */}
+                {/* <MaterialCommunityIcons
                     style={{ position: 'absolute', left: '100%' }}
                     name={rightIcon}
                     size={22}
                     color="#232323"
-                  />
-                </Pressable>
+                  /> */}
+                {/* </Pressable> */}
               </View>
             </View>
           </TouchableWithoutFeedback>
+          <View style={styles.loginButton}>
+            <Button
+              buttonStyle={styles.button}
+              onPress={handlePasswordVisibility}
+            >
+              <MaterialCommunityIcons
+                style={{ position: 'absolute' }}
+                name={rightIcon}
+                size={22}
+                color="#232323"
+              />
+            </Button>
+          </View>
         </KeyboardAvoidingView>
 
         <View style={{ bottom: '10%' }}>
@@ -110,6 +133,7 @@ export const LoginScreen = ({ navigation }) => {
             }}
             onPress={onLogin}
           />
+
           <TouchableHighlight onPress={() => navigation.navigate('Register')}>
             <Text style={styles.title}>Нет аккаунта? Зарегистрироваться</Text>
           </TouchableHighlight>

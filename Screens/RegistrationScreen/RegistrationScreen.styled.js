@@ -47,4 +47,14 @@ export const styles = StyleSheet.create({
     // alignItems: 'center',
     // marginBottom: 20,
   },
+  button: {
+    backgroundColor: '#ecf0f1',
+    padding: 20,
+  },
+  registrationButton: {
+    width: '10%',
+    position: 'absolute',
+    left: 300,
+    top: 262,
+  },
 });

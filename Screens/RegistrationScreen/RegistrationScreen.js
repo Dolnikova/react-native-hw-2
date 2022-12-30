@@ -42,80 +42,86 @@ export const RegistrationScreen = ({ navigation }) => {
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
-        source={require('../../assets/imegs/flag.jpg')}
+        // source={require('../../assets/imegs/flag.jpg')}
       >
         <KeyboardAvoidingView
           behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         >
-          <Pressable onPress={handlePasswordVisibility}>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                Keyboard.dismiss();
-                setKeyboardActive(false);
+          <TouchableWithoutFeedback
+            onPress={() => {
+              Keyboard.dismiss();
+              setKeyboardActive(false);
+            }}
+          >
+            <View
+              style={{
+                ...styles.form,
+                marginBottom: isKeyboardActive ? 20 : 100,
               }}
             >
-              <View
-                style={{
-                  ...styles.form,
-                  marginBottom: isKeyboardActive ? 20 : 100,
-                }}
-              >
-                <View>
-                  <Text style={styles.p}>Регистрация</Text>
-                  <TextInput
-                    value={name}
-                    onChangeText={value => setName(value)}
-                    placeholder="Login"
-                    onFocus={() => {
-                      setFocusName(true);
-                      setKeyboardActive(true);
-                    }}
-                    style={focusName ? styles.inputFocus : styles.input}
-                    onBlur={() => {
-                      setFocusName(false);
-                    }}
-                  />
-                </View>
-                <View style={{ marginTop: 20 }}>
-                  <TextInput
-                    value={email}
-                    onChangeText={value => setEmail(value)}
-                    placeholder="Email"
-                    onFocus={() => {
-                      setFocusEmail(true);
-                      setKeyboardActive(true);
-                    }}
-                    style={focusEmail ? styles.inputFocus : styles.input}
-                    onBlur={() => {
-                      setFocusEmail(false);
-                    }}
-                  />
-                </View>
-                <View style={{ position: 'relative', marginTop: 20 }}>
-                  <TextInput
-                    value={password}
-                    onChangeText={value => setPassword(value)}
-                    placeholder="Password"
-                    secureTextEntry={passwordVisibility}
-                    onFocus={() => {
-                      setFocusPassword(true);
-                      setKeyboardActive(true);
-                    }}
-                    style={focusPassword ? styles.inputFocus : styles.input}
-                    onBlur={() => {
-                      setFocusPassword(false);
-                    }}
-                  />
-                  <MaterialCommunityIcons
-                    style={{ position: 'absolute', left: '90%', top: '20%' }}
-                    name={rightIcon}
-                    size={22}
-                    color="#232323"
-                  />
-                </View>
+              <View>
+                <Text style={styles.p}>Регистрация</Text>
+                <TextInput
+                  value={name}
+                  onChangeText={value => setName(value)}
+                  placeholder="Login"
+                  onFocus={() => {
+                    setFocusName(true);
+                    setKeyboardActive(true);
+                  }}
+                  style={focusName ? styles.inputFocus : styles.input}
+                  onBlur={() => {
+                    setFocusName(false);
+                  }}
+                />
               </View>
-            </TouchableWithoutFeedback>
-          </Pressable>
+              <View style={{ marginTop: 20 }}>
+                <TextInput
+                  value={email}
+                  onChangeText={value => setEmail(value)}
+                  placeholder="Email"
+                  onFocus={() => {
+                    setFocusEmail(true);
+                    setKeyboardActive(true);
+                  }}
+                  style={focusEmail ? styles.inputFocus : styles.input}
+                  onBlur={() => {
+                    setFocusEmail(false);
+                  }}
+                />
+              </View>
+              <View style={{ position: 'relative', marginTop: 20 }}>
+                <TextInput
+                  value={password}
+                  onChangeText={value => setPassword(value)}
+                  placeholder="Password"
+                  secureTextEntry={passwordVisibility}
+                  onFocus={() => {
+                    setFocusPassword(true);
+                    setKeyboardActive(true);
+                  }}
+                  style={focusPassword ? styles.inputFocus : styles.input}
+                  onBlur={() => {
+                    setFocusPassword(false);
+                  }}
+                />
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+
+          <View style={styles.registrationButton}>
+            <Button
+              buttonStyle={styles.button}
+              onPress={handlePasswordVisibility}
+            >
+              <MaterialCommunityIcons
+                style={{ position: 'absolute' }}
+                name={rightIcon}
+                size={22}
+                color="#232323"
+              />
+            </Button>
+          </View>
         </KeyboardAvoidingView>
         <View style={{ bottom: '10%' }}>
           <Button

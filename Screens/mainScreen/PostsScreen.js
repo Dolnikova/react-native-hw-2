@@ -1,5 +1,6 @@
 import { AntDesign, EvilIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Button } from '@rneui/themed/dist/Button';
 import { Image } from '@rneui/themed/dist/Image';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
@@ -28,7 +29,7 @@ const Main = ({ navigation }) => {
           snapshot => {
             const posts = [];
             snapshot.forEach(doc => {
-              posts.push(doc.data());
+              posts.push({ ...doc.data(), id: doc.id });
             });
             setPosts(posts);
           }
@@ -72,7 +73,10 @@ const Main = ({ navigation }) => {
 
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('Comments', { photo: item.photo });
+                  navigation.navigate('Comments', {
+                    photo: item.photo,
+                    postId: item.id,
+                  });
                 }}
                 style={{ flexDirection: 'row' }}
               >
@@ -93,14 +97,16 @@ const PostsScreen = () => {
       <PostsStack.Screen
         options={{
           headerRight: () => (
-            <Pressable
-              onPress={() => {
-                dispatch(logOut());
-              }}
-              style={{ right: 20 }}
-            >
-              <AntDesign name="logout" size={20} style={{ opacity: 0.3 }} />
-            </Pressable>
+            <View style={styles.PostsScreenButton}>
+              <Button
+                buttonStyle={{ backgroundColor: 'white', right: 5 }}
+                onPress={() => {
+                  dispatch(logOut());
+                }}
+              >
+                <AntDesign name="logout" size={20} style={{ opacity: 0.3 }} />
+              </Button>
+            </View>
           ),
           // headerShown: false,
         }}

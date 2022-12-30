@@ -75,13 +75,8 @@ const MainRoute = () => {
             <AntDesign
               name="pluscircle"
               size={32}
-              Style={{
-                capInsets: {
-                  bottom: 20,
-                  left: null,
-                  right: undefined,
-                  top: 50,
-                },
+              style={{
+                top: 5,
               }}
               color={'orange'}
             />

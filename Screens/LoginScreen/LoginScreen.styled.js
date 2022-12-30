@@ -42,4 +42,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  button: {
+    backgroundColor: '#ecf0f1',
+    padding: 20,
+  },
+  loginButton: {
+    width: '10%',
+    position: 'absolute',
+    left: 300,
+    top: 175,
+  },
 });
