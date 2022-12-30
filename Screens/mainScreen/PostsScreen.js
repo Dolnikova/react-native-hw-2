@@ -2,7 +2,7 @@ import { AntDesign, EvilIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Button } from '@rneui/themed/dist/Button';
 import { Image } from '@rneui/themed/dist/Image';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, doc, onSnapshot, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
 import { Pressable } from 'react-native';
@@ -80,8 +80,7 @@ const Main = ({ navigation }) => {
                 }}
                 style={{ flexDirection: 'row' }}
               >
-                <EvilIcons name="comment" size={18} color="#BDBDBD" />
-                <Text style={{ left: 9 }}>0</Text>
+                <EvilIcons name="comment" size={25} color="#BDBDBD" />
               </TouchableOpacity>
             </View>
           </SafeAreaView>
@@ -108,20 +107,11 @@ const PostsScreen = () => {
               </Button>
             </View>
           ),
-          // headerShown: false,
         }}
         name="MainPosts"
         component={Main}
       />
-      <PostsStack.Screen
-        options={
-          {
-            // headerShown: false,
-          }
-        }
-        name="Comments"
-        component={CommentsScreen}
-      />
+      <PostsStack.Screen name="Comments" component={CommentsScreen} />
       <PostsStack.Screen
         options={{
           headerShown: false,
@@ -138,11 +128,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // top: -100,
   },
   containerSoce: {
     top: 18,
-    // width: '100%',
     display: 'flex',
     flexDirection: 'row-reverse',
     alignItems: 'baseline',

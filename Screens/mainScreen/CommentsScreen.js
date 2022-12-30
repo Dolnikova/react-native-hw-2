@@ -18,7 +18,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { addDoc, collection, doc, onSnapshot } from 'firebase/firestore';
 
 export const CommentsScreen = ({ route }) => {
-  // const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
   const { name } = useSelector(getUser);
@@ -95,7 +94,6 @@ export const CommentsScreen = ({ route }) => {
             onChangeText={value => setComment(value)}
             style={styles.input}
           />
-          {/* <View style={styles.commentButton}> */}
           <TouchableOpacity style={styles.commentButton} onPress={sendComment}>
             <FontAwesome5
               name="arrow-circle-up"
@@ -104,7 +102,6 @@ export const CommentsScreen = ({ route }) => {
               style={styles.icon}
             />
           </TouchableOpacity>
-          {/* </View> */}
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>

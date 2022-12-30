@@ -61,7 +61,6 @@ const CreatePostsScreen = ({ navigation }) => {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       };
-      console.log(location);
       setLocation(location);
       let backPerm = await Location.requestBackgroundPermissionsAsync();
     })();
